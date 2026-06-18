@@ -1,0 +1,137 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-ordem-servico
+      author: system
+      changes:
+        - createTable:
+            tableName: ordem_servico
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: tracking_code
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: cliente_cpf_cnpj
+                  type: VARCHAR(18)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: veiculo_placa
+                  type: VARCHAR(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: veiculo_marca
+                  type: VARCHAR(80)
+              - column:
+                  name: veiculo_modelo
+                  type: VARCHAR(80)
+              - column:
+                  name: veiculo_ano
+                  type: INT
+              - column:
+                  name: status
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: valor_estimado
+                  type: DECIMAL(12,2)
+              - column:
+                  name: criado_em
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atualizado_em
+                  type: TIMESTAMP WITH TIME ZONE
+
+  - changeSet:
+      id: 001-create-os-item-servico
+      author: system
+      changes:
+        - createTable:
+            tableName: os_item_servico
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: os_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_item_servico_os
+                    references: ordem_servico(id)
+              - column:
+                  name: servico_id
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: preco
+                  type: DECIMAL(12,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantidade
+                  type: INT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 001-create-os-item-peca
+      author: system
+      changes:
+        - createTable:
+            tableName: os_item_peca
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: os_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_item_peca_os
+                    references: ordem_servico(id)
+              - column:
+                  name: peca_id
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: preco_unitario
+                  type: DECIMAL(12,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantidade
+                  type: INT
+                  constraints:
+                    nullable: false

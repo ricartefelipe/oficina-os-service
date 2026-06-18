@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oficina-os-config
+  namespace: oficina
+data:
+  DB_URL: "jdbc:postgresql://postgres-os:5432/oficina_os"
+  DB_USER: "oficina"
+  RABBITMQ_HOST: "rabbitmq"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USER: "guest"
+  KEYCLOAK_ISSUER: "http://keycloak:8080/realms/oficina"
