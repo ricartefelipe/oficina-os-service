@@ -2,9 +2,11 @@ package br.com.oficina.os.adapters.out.messaging;
 
 import br.com.oficina.os.application.port.out.EventPublisherPort;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnBean(RabbitTemplate.class)
 class RabbitMqEventPublisher implements EventPublisherPort {
 
     private final RabbitTemplate rabbitTemplate;
